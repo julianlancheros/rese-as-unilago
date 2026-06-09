@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reseñas de Equipos Tecnológicos - UniLago</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .rating { display: flex; gap: 10px; align-items: center; }
+        .rating input { width: auto; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>📱 Reseñas de Equipos Tecnológicos</h1>
+    <h2>Registrar nueva reseña</h2>
+
+    <form action="guardar_resena.php" method="POST">
+        <div class="form-group">
+            <label>Nombre del producto:</label>
+            <input type="text" name="nombre_producto" required placeholder="Ej: MacBook Pro M3, Samsung Galaxy S24...">
+        </div>
+
+        <div class="form-group">
+            <label>Categoría:</label>
+            <select name="categoria">
+                <option value="Laptop">💻 Laptop</option>
+                <option value="Smartphone">📱 Smartphone</option>
+                <option value="Tablet">📟 Tablet</option>
+                <option value="Auriculares">🎧 Auriculares</option>
+                <option value="Otro">🔧 Otro</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Calificación (1-5 estrellas):</label>
+            <div class="rating">
+                <input type="radio" name="calificacion" value="1" required> ⭐
+                <input type="radio" name="calificacion" value="2"> ⭐⭐
+                <input type="radio" name="calificacion" value="3"> ⭐⭐⭐
+                <input type="radio" name="calificacion" value="4"> ⭐⭐⭐⭐
+                <input type="radio" name="calificacion" value="5"> ⭐⭐⭐⭐⭐
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Tu reseña:</label>
+            <textarea name="reseña" rows="6" required placeholder="Cuéntanos tu experiencia con este equipo..."></textarea>
+        </div>
+
+        <button type="submit">📝 Guardar Reseña</button>
+    </form>
+
+    <hr>
+    <p><a href="consultar_resenas.php">🔍 Ver todas las reseñas</a></p>
+</body>
+</html>

@@ -1,39 +1,25 @@
 <?php
-// conexion.php - Conexión a PostgreSQL en Render
-// La variable DATABASE_URL es inyectada AUTOMÁTICAMENTE por Render
+// conexion.php - Conexión directa a PostgreSQL en Render
 
-$database_url = getenv('DATABASE_URL');
-
-// Si NO está en Render (pruebas locales), usa las credenciales manualmente
-if (!$database_url) {
-    // Credenciales para pruebas LOCALES (NO subir a GitHub sin cuidar)
-    $database_url = "postgresql://db_resenas_unilago_user:68s4D3X5DYhrTXM5MHUpQB5M1iYPWzFq@dpg-d8kbnksvikkc73crpg10-a.oregon-postgres.render.com:5432/db_resenas_unilago";
-}
+//Credenciales de la base de datos
+$host = "dpg-d8kbnksvikkc73crpg10-a.oregon-postgres.render.com";
+$port = "5432";
+$dbname = "db_resenas_unilago";
+$user = "db_resenas_unilago_user";
+$password = "68s4D3X5DYhrTXM5MHUpQB5M1iYPWzFq";
 
 try {
-    // Parsear la URL de conexión de PostgreSQL
-    $db = parse_url($database_url);
-    
-    $host = $db['host'];
-    $port = $db['port'] ?? '5432';
-    $dbname = ltrim($db['path'], '/');
-    $user = $db['user'];
-    $password = $db['pass'] ?? '';
-    
-    // DSN para PDO_PGSQL con SSL requerido
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
+    // DSN para PDO_PGSQL (sin SSL para evitar errores)
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
     
     $pdo = new PDO($dsn, $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     
-    // Opcional: descomentar para pruebas
+    // Mensaje de éxito (opcional, puedes comentarlo después)
     // echo "✅ Conexión exitosa a PostgreSQL";
     
 } catch (PDOException $e) {
-    die("❌ Error de conexión a la base de datos: " . $e->getMessage());
-}
-?>
     die("❌ Error de conexión a la base de datos: " . $e->getMessage());
 }
 ?>
